@@ -1,54 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
     <!-- <link rel="stylesheet" href="../class/style.css"> -->
     <title>Loading...</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            Class-Suit
+      <div class="logo">Class-Suit</div>
+      <nav>
+        <div class="profile">
+          <div class="dropdown">
+            <img
+              src=""
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              id="profile"
+              alt=""
+            />
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" onclick="signOut()">SignOut</a></li>
+            </ul>
+          </div>
         </div>
-        <nav>
-            <!-- <div class="dropdown">
-                <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" data-bs-toggle="modal" id="joinClassModalBtn"
-                            data-bs-target="#joinClassModal">Join New Class</a></li>
-                    <li><a data-bs-toggle="modal" data-bs-target="#flScrModal" class="dropdown-item">Create Your Own
-                            Class</a></li>
-                </ul>
-            </div> -->
-            <div class="profile">
-                <div class="dropdown">
-                    <img src="" data-bs-toggle="dropdown" aria-expanded="false" id="profile" alt="">
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" onclick="signOut()">SignOut</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+      </nav>
     </header>
     <section>
-        <form class="container" role="">
-            <div class="mb-3">
-              <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title">
+      <form class="container w-75" role="">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder="Title"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label"
+            >Description</label
+          >
+          <textarea
+            class="form-control"
+            id="description"
+            rows="3"
+            placeholder="Description"
+          ></textarea>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#dragDrop"
+        >
+          Upload Files
+        </button>
+        <button type="button" class="btn btn-primary" onclick="postWork()">
+          Post
+        </button>
+      </form>
+      <!-- Modal -->
+
+      <div
+        class="modal fade"
+        id="dragDrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="dragDropLabel"
+        aria-hidden="true"
+      >
+        <form>
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="dragDropLabel">Upload Files</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="drag-area">
+                  <div class="icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <header>Drag & Drop to Upload File</header>
+                  <span>OR</span>
+                  <button type="button">Browse File</button>
+                  <input type="file" hidden multiple="multiple" />
+                  <p id="fileName"></p>
+                  <div class="progress">
+                    <div
+                      id="progress"
+                      class="progress-bar progress-bar-striped progress-bar-animated"
+                      role="progressbar"
+                      aria-valuemin="0"
+                      id=""
+                      aria-valuemax="100"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  onclick="resetFileInput()"
+                  class="btn btn-secondary"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="saveFiles()"
+                >
+                  Upload
+                </button>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+          </div>
+        </form>
+      </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
@@ -56,7 +148,12 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
     <script src="../firebase/config.js"></script>
     <script src="../backend/auth.js"></script>
-</body>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="../backend/common.js"></script>
+    <script src="./script.js"></script>
+    <script src="./uploadFiles.js"></script>
+  </body>
 </html>
